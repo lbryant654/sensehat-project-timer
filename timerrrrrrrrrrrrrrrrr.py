@@ -34,82 +34,54 @@ blinkblink = [
 
 scroll_speed = 0.05
 
+secs = 0
+
+timerr = True
+
 def pressed():
-    sense.show_message("5 second timer.", text_colour = r, scroll_speed = 0.05)
-    sense.show_message("Say the alphabet as fast as you can in this time frame!", text_colour = b, scroll_speed = 0.05)
-    secs = 5        
+    global secs
+    sense.show_message(str(secs) + " second timer.", text_colour = r, scroll_speed = 0.05)
+
+    if secs <= 5:
+        sense.show_message("Say the alphabet as fast as you can in this time frame!", text_colour = b, scroll_speed = 0.05)
     for i in range(64):
         if i < secs:
-            timer.append(g)
+             timer.append(g)
         else:
-            timer.append(x)
-
+             timer.append(x)
+        
     sense.set_pixels(timer)
-
+        
     for i in range(0, secs):
         sleep(1)
         timer[i] = r
         sense.set_pixels(timer)
-    
+        
     for i in range(0,10):
         sense.clear()
         sleep(0.1)
         sense.set_pixels(blinkblink)
         sleep(0.1)
 
+    timerr = False
     sense.clear()
 
 def rightt():
-    sense.show_message("10 second timer.", text_colour = r, scroll_speed = 0.05)
-    sense.show_message("FF", text_colour = b, scroll_speed = 0.05)
-    secs = 10       
-    for i in range(64):
-        if i < secs:
-            timer.append(g)
-        else:
-            timer.append(x)
-
-    sense.set_pixels(timer)
-
-    for i in range(0, secs):
-        sleep(1)
-        timer[i] = r
-        sense.set_pixels(timer)
-    
-    for i in range(0,10):
-        sense.clear()
-        sleep(0.1)
-        sense.set_pixels(blinkblink)
-        sleep(0.1)
-
-    sense.clear()
-
+    global secs
+    if secs < 10:
+        secs += 1
+        sense.show_letter(str(secs), text_colour = g)
+    else:
+        sense.show_letter(str(secs), text_colour = g)
 
 def leftt():
-    sense.show_message("20 second timer.", text_colour = r, scroll_speed = 0.05)
-    sense.show_message("FF", text_colour = b, scroll_speed = 0.05)
-    secs = 20       
-    for i in range(64):
-        if i < secs:
-            timer.append(g)
-        else:
-            timer.append(x)
-
-    sense.set_pixels(timer)
-
-    for i in range(0, secs):
-        sleep(1)
-        timer[i] = r
-        sense.set_pixels(timer)
-    
-    for i in range(0,10):
-        sense.clear()
-        sleep(0.1)
-        sense.set_pixels(blinkblink)
-        sleep(0.1)
-
-    sense.clear()
-
-sense.stick.direction_middle = pressed
-sense.stick.direction_right = rightt
-sense.stick.direction_left = leftt
+    global secs
+    if secs > 0:
+        secs -= 1
+        sense.show_letter(str(secs), text_colour = g)
+    else:
+        sense.show_letter(str(secs), text_colour = g)
+while True:
+    sense.stick.direction_middle = pressed
+    sense.stick.direction_right = rightt
+    sense.stick.direction_left = leftt
