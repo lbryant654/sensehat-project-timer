@@ -58,6 +58,7 @@ def pressed():
         sense.set_pixels(timer)
         
     for i in range(0,10):
+        global blinkblink
         sense.clear()
         sleep(0.1)
         sense.set_pixels(blinkblink)
@@ -68,19 +69,50 @@ def pressed():
 
 def rightt():
     global secs
-    if secs < 10:
+    if secs < 9:
         secs += 1
         sense.show_letter(str(secs), text_colour = g)
-    else:
-        sense.show_letter(str(secs), text_colour = g)
+    elif secs >= 9:
+        secs += 1
+        sense.show_letter(str((secs - 10)), text_colour = g)
+    elif secs >= 19:
+        secs += 1
+        sense.show_letter(str((secs - 20)), text_colour = g)
+    elif secs >= 29:
+        secs += 1
+        sense.show_letter(str((secs - 30)), text_colour = g)
+    elif secs >= 39:
+        secs += 1
+        sense.show_letter(str((secs - 40)), text_colour = g)
+    elif secs >= 49:
+        secs += 1
+        sense.show_letter(str((secs - 50)), text_colour = g)
+    elif secs >= 59 and secs < 64:
+        secs += 1
+        sense.show_letter(str((secs - 60)), text_colour = g)
+    elif secs == 64:
+        sense.show_message("You can't go any higher!", text_colour = r)
 
 def leftt():
     global secs
-    if secs > 0:
+    if secs < 10:
         secs -= 1
-        sense.show_letter(str(secs), text_colour = g)
-    else:
-        sense.show_letter(str(secs), text_colour = g)
+        sense.show_letter(str((secs - 10)), text_colour = g)
+    elif secs < 20:
+        secs -= 1
+        sense.show_letter(str((secs - 20)), text_colour = g)
+    elif secs < 30:
+        secs -= 1
+        sense.show_letter(str((secs - 30)), text_colour = g)
+    elif secs < 40:
+        secs -= 1
+        sense.show_letter(str((secs - 40)), text_colour = g)
+    elif secs < 50:
+        secs -= 1
+        sense.show_letter(str((secs - 50)), text_colour = g)
+    elif secs < 60:
+        secs -= 1
+        sense.show_letter(str((secs - 60)), text_colour = g)
 while True:
     sense.stick.direction_middle = pressed
     sense.stick.direction_right = rightt
